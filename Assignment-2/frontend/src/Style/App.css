@@ -1,0 +1,16 @@
+*{
+  margin:0;
+  padding:0;
+}
+.App{
+  margin: auto;
+  width: 90%;
+  padding: 3%;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap:2rem;
+}
+#AppCon{
+  width: 100%;
+  background-color: rgb(73, 117, 121);
+}
