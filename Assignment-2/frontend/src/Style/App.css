@@ -7,10 +7,45 @@
   width: 90%;
   padding: 3%;
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(4,1fr);
   gap:2rem;
 }
 #AppCon{
   width: 100%;
   background-color: rgb(73, 117, 121);
+}
+.inputAdd{
+  width: 30%;
+  margin:1rem auto;
+}
+.addnote{
+  padding: 1rem;
+  border-radius: 15px;
+}
+.addnote+button{
+  padding: 1rem;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  margin-left: 1rem;
+  background-color: rgb(124, 228, 103);
+}
+#editPopUp{
+  background-color: rgb(231, 245, 155);
+  height: 100px;
+  width: 400px;
+  border: 2px solid rgb(27, 18, 18);
+  position: absolute;
+  top:10%;
+  right:40%;
+  margin: auto;
+  padding: 1rem;
+  border-radius: 10px;
+}
+#cross{
+  font-size: 1.4rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
 }
