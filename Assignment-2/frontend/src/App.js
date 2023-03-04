@@ -4,17 +4,17 @@ import Notes from "./Components/Notes";
 import Footer from "./Components/Footer";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { RxCrossCircled} from 'react-icons/rx';
+import { RxCrossCircled } from "react-icons/rx";
 
 function App() {
   const [text, setText] = useState("");
   const [editText, setEditText] = useState("");
   const [data, setData] = useState([]);
-  const [toggle,setToggle]=useState(false)
-  const [editId,setEditId]=useState("")
+  const [toggle, setToggle] = useState(false);
+  const [editId, setEditId] = useState("");
   const getData = () => {
     axios
-      .get("http://localhost:8080/notes")
+      .get("https://iwcn-api.onrender.com/notes")
       .then((res) => {
         setData(res.data);
       })
@@ -29,7 +29,7 @@ function App() {
   const handleAdd = () => {
     const payload = { Title: text };
     axios
-      .post("http://localhost:8080/create", payload)
+      .post("https://iwcn-api.onrender.com/create", payload)
       .then((res) => {
         console.log(res);
       })
@@ -38,11 +38,12 @@ function App() {
       });
     setText("");
     getData();
+    window.location.reload();
   };
   //  Delete operation
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:8080/delete/${id}`)
+      .delete(`https://iwcn-api.onrender.com/delete/${id}`)
       .then((res) => {
         alert(res.data);
       })
@@ -50,29 +51,29 @@ function App() {
         console.log(err);
       });
     getData();
+    window.location.reload();
   };
   //Edit operation
   const handleEdit = (id) => {
-    setToggle(true)
-    setEditId(id)
-     
+    setToggle(true);
+    setEditId(id);
   };
-  
+
   //Edit popup
-  const handleEditAdd=async ()=>{
-    console.log(editId,editText)
+  const handleEditAdd = async () => {
+    console.log(editId, editText);
     const payload = { Title: editText };
     axios
-    .patch(`http://localhost:8080/edit/${editId}`, payload)
-    .then((res) => {
-      
-      setToggle(false)
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .patch(`https://iwcn-api.onrender.com/edit/${editId}`, payload)
+      .then((res) => {
+        setToggle(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     await getData();
-  }
+    window.location.reload();
+  };
   console.log(data);
   return (
     <div id="AppCon">
@@ -98,12 +99,23 @@ function App() {
             />
           ))}
       </div>
-          <div show={toggle} id="editPopUp" style={toggle?{display:"block"}:{display:"none"}}>
-              <input className="addnote" type='text' onChange={(e)=>setEditText(e.target.value)} placeholder="Add new note"/>
-              
-              <button onClick={handleEditAdd}>Add Edited Note</button>
-              <div id='cross' onClick={()=>setToggle(false)}><RxCrossCircled/></div>
-            </div>
+      <div
+        show={toggle}
+        id="editPopUp"
+        style={toggle ? { display: "block" } : { display: "none" }}
+      >
+        <input
+          className="addnote"
+          type="text"
+          onChange={(e) => setEditText(e.target.value)}
+          placeholder="Add new note"
+        />
+
+        <button onClick={handleEditAdd}>Add Edited Note</button>
+        <div id="cross" onClick={() => setToggle(false)}>
+          <RxCrossCircled />
+        </div>
+      </div>
       <Footer />
     </div>
   );
